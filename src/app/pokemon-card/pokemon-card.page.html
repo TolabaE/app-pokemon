@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>tarjeta de Pokemon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-item-group>
+    <!-- capturo el id para poder acceder a la tarjeta de detalle -->
+    <ion-item-divider>
+      <ion-label>Sprite</ion-label>
+      <ion-label>Nombre</ion-label>
+      <ion-label>Tipo</ion-label>
+    </ion-item-divider>
+
+    <ion-list *ngFor="let item of pokemons">
+      <ion-item [routerLink]="['/pokemon-list',item.id]" >
+        <ion-avatar aria-hidden="true" slot="start">
+          <ion-img src="{{item.imagen}}"/>
+        </ion-avatar> 
+        <ion-label>{{item.name}}</ion-label>
+        <ion-label>{{item.category}}</ion-label>
+      </ion-item> 
+    </ion-list>
+
+  </ion-item-group>
+
+</ion-content>

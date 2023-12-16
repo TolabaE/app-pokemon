@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>detalle del pokemon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card *ngFor="let item of pokemones">
+    <ion-img src="{{item.imagen}}"/>
+    <ion-card-header>
+      <ion-card-title>{{item.nombre}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{item.estado}}
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

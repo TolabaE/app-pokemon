@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'pokemon-list',//aqui estaba antes pokemon-card que es la ruta que venia por defecto
+    loadChildren: () => import('./pokemon-card/pokemon-card.module').then( m => m.PokemonCardPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,19 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title class="title-app">
-      bienvenido a la aplicacion de pokemones
+      Aplicacion de pokemones
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-
-  <div class="title-welcome">
-    se armaran equipos de 4 pokemon de distintos tipos, y cada vez que recarges la pagina se generaran nuevo
-    equipos
-  </div>
-
-  <ion-button class="btn-link" [routerLink]="['/pokemon-list']" routerLinkActive="router-link-active" >ver los equipos de pokemones</ion-button>
-
+  <ion-label class="title-welcome">se armaran equipos de 4 pokemon de distintos tipos, y cada vez que recarges la pagina se generaran nuevo equipos</ion-label>
+  <ion-content>
+    <ion-button class="btn-link" [routerLink]="['/pokemon-list']" routerLinkActive="router-link-active" >ver los equipos de pokemones</ion-button>
+  </ion-content>
 </ion-content>

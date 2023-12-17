@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
+import { arrayPokemons,category,TypePokemon } from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -26,53 +27,58 @@ export class PokeapiService {
   categorys: Array<category> = [
     {
       id:6,
-      tipo:"Rock"
+      tipo:"Roca"
     },
     {
       id:10,
-      tipo:"Fire"
+      tipo:"Fuego"
     },
     {
       id:11,
-      tipo:"Water"
+      tipo:"Agua"
     },
     {
       id:13,
-      tipo:"Electric"
+      tipo:"Electrico"
     }
   ]
 
   getTypePokemons(type: TypePokemon){    
-    return this.http.get<any>(this.baseUrl + `type/${type}`).pipe(map( x =>  {
-      let res = x.pokemon.map((x:any) => {
+    return this.http.get<arrayPokemons>(this.baseUrl + `type/${type}`).pipe(map( data =>  {
+      let res = data.pokemon.map((x) => {
         let str = x.pokemon.url;
         let idx = str.indexOf('pokemon/') + 8;
         str = str.slice(idx);
-        let id = str.slice(0, -1);
+        let id = parseInt(str.slice(0, -1));//quito la barrita        
         return { id : id , name : x.pokemon.name }
       });
-      return res as {id:number, name:string} [];
+      return res ;
     }));
   }
   
   //metodo que genera un numero random;
-  numberRandom = (min:number,max:number) =>{
-    return Math.floor(Math.random() * (max - min)) + 1;
+  numberRandom = (max:number) =>{
+    return Math.floor(Math.random() * max);
   }
+
 
   //este metodo recorre una lista de id, que ejecuta el metodo getTypePokemons por cada id que valla pasando.
   getAllPokemons (ids:number[]){
     ids.forEach( x =>{
       this.getTypePokemons(x).subscribe(data=>{
-        let randomPokemon:any = data[this.numberRandom(0,data.length)];//obtengo la posicion de un pokemon de acuerdo a la longitud del arreglo
+        let randomPokemon = data[this.numberRandom(data.length)];//obtengo la posicion de un pokemon de acuerdo a la longitud del arreglo
         this.getPokemon(randomPokemon.id).subscribe(infoPokemon => {
-          randomPokemon.category = this.categorys.find(item => item.id == x )?.tipo;//obtengo la categoria a la que pertence en pokemon.
-          randomPokemon.imagen = infoPokemon.sprites.front_default;
+            this.categorys.find(item =>{
+              if (item.id == x ) {
+                Object.assign(randomPokemon, { category: item.tipo});
+              }
+          });//obtengo la categoria a la que pertence en pokemon.
+          Object.assign(randomPokemon, { imagen: infoPokemon.sprites.front_default});//es un metodo del object que asigna una nueva propiedad a un objeto
           this.listaPokemons.push(randomPokemon);
         })        
       })
     })
-    return this.listaPokemons;
+    return this.listaPokemons;//retorna la lista de 4 pokemones de distintos tipos.
   }
 
 
@@ -98,14 +104,3 @@ export class PokeapiService {
   }
 }
 
-enum TypePokemon {
-  Fire = 10,
-  Electric = 13,
-  Rock = 6,
-  Water = 11
-}
-
-interface category {
-  id:number,
-  tipo:string
-}

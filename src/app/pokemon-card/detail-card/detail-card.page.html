@@ -6,16 +6,48 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-card *ngFor="let item of pokemones">
-    <ion-img src="{{item.imagen}}"/>
+  <ion-card>
+    <ion-grid></ion-grid>
     <ion-card-header>
-      <ion-card-title>{{item.nombre}}</ion-card-title>
+      <ion-row class="detail-header">
+        <ion-col>
+          <img alt="imagen frontal del pokemon" src="{{objeto.picture}}" />
+        </ion-col>
+        <ion-col>
+          <ion-card-title class="ion-text-center">{{objeto.name}}</ion-card-title>
+        </ion-col>
+      </ion-row>
     </ion-card-header>
   
     <ion-card-content>
-      {{item.estado}}
+      <ion-card-subtitle>Descripción</ion-card-subtitle>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label>Peso</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>{{objeto.weight}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label>Altura</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>{{objeto.height}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label>Experience</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>{{objeto.experience}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
-
 
 </ion-content>

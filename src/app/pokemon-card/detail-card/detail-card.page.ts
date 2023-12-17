@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PokeapiService } from '../pokeapi.service';
+import { response, detalle } from 'src/app/types';
+
 
 @Component({
   selector: 'app-detail-card',
@@ -7,20 +11,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailCardPage implements OnInit {
 
-  pokemones = [
-    {
-      id:1,
-      nombre:"pikachu",
-      estado:"solido",
-      imagen:"https://www.shutterstock.com/image-vector/cute-adorable-vector-illustration-creature-260nw-2313970711.jpg"
-    }
-  ]
-
-  constructor() { }
-
-  ngOnInit() {
-    console.log(this.pokemones);
-    
+  public objeto:detalle = {
+    picture:"",
+    name:"",
+    height:0,
+    weight:0,
+    experience:0
   }
 
+  constructor(private activedRoute: ActivatedRoute, private servicios:PokeapiService) { }
+  
+  ngOnInit():void{
+
+    this.activedRoute.paramMap.subscribe(result =>{
+      let id = result.get('pokemonID');//recibo el id que me envian por parametro
+      if(typeof id === "string"){
+        this.servicios.getPokemon(parseInt(id)).subscribe( (data:response) =>{      
+          this.objeto = {
+            picture:data.sprites.front_default,
+            name: data.name,
+            height:data.height,
+            weight:data.weight,
+            experience: data.base_experience
+          }
+        })
+      }
+    })
+  }
 }
+

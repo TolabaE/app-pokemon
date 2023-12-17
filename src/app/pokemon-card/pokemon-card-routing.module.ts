@@ -9,7 +9,7 @@ const routes: Routes = [
     component: PokemonCardPage
   },
   {
-    path: ':detail-card',//esta es la ruta para acceder a la carta de detalle.
+    path: ':pokemonID',//esta es la ruta para acceder a la carta de detalle.
     loadChildren: () => import('./detail-card/detail-card.module').then( m => m.DetailCardPageModule)
   }
 ];

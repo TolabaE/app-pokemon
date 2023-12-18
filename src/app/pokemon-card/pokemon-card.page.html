@@ -5,16 +5,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <ion-button (click)="clickRefresh()">
+    refrescar equipo
+    <ion-icon slot="end" name="reload"></ion-icon>
+  </ion-button>
   <ion-item-group>
-    <!-- capturo el id para poder acceder a la tarjeta de detalle -->
     <ion-item-divider>
       <ion-label>Sprite</ion-label>
       <ion-label>Nombre</ion-label>
       <ion-label>Tipo</ion-label>
     </ion-item-divider>
-
+    
     <ion-list *ngFor="let item of pokemons">
+      <!-- capturo el id para poder acceder a la tarjeta de detalle -->
       <ion-item [routerLink]="['/pokemon-list',item.id]" >
         <ion-avatar aria-hidden="true" slot="start">
           <ion-img src="{{item.imagen}}"/>

@@ -10,7 +10,7 @@ export class PokeapiService {
 
   private readonly baseUrl = "https://pokeapi.co/api/v2/";
 
-  listaPokemons:any = []
+  listaPokemons:any = [];
   constructor(
     private http:HttpClient
   ) { }
@@ -22,7 +22,7 @@ export class PokeapiService {
    * @return {*}
    * @memberof PokeapiService
    */
-
+  
 
   categorys: Array<category> = [
     {
@@ -80,7 +80,6 @@ export class PokeapiService {
     })
     return this.listaPokemons;//retorna la lista de 4 pokemones de distintos tipos.
   }
-
 
   // getFirePokemons(){
   //   return this.getTypePokemons(TypePokemon.Fire);
